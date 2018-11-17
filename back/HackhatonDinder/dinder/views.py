@@ -1,11 +1,9 @@
 from django.http import HttpResponse
-from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from dinder import models, serializers
 from dinder.models import DinderEvent, DinderProfile
-from dinder.serializers import EventSerializer
+from dinder.serializers import GroupSerializer, EventSerializer, ProfileSerializer
 
 
 def index(request):
@@ -40,8 +38,9 @@ def logoutView(request, username):
 def showGroups(request, userid):
     guy = DinderProfile.objects.get(id=userid)
     guyGroups = guy.groups.all()
-    # object with groups of guy
-    pass
+
+    serializer = GroupSerializer(guyGroups, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -50,7 +49,9 @@ def showEvents(request, userid, groupname):
     guyGroups = guy.groups.all()
     group = guyGroups.get(name=groupname)
     events = group.dinderevent_set.all()
-    # objects with events of a guy's chosen group
+
+    serializer = EventSerializer(events, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
