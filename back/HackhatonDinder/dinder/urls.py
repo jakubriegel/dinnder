@@ -1,14 +1,11 @@
-from django.conf.urls import url
-from django.urls import path,include
+from django.urls import path
 from . import views
-
-from rest_framework import routers
-
-router = routers.DefaultRouter()
-router.register('events', views.EventView, basename='events')
 
 urlpatterns = [
     path('', views.index, name='index'),
-    url('api', include(router.urls)),
-    # url('all-events', views.all_events)
+    path('api/login/<username>', views.loginView),
+    path('api/login/<username>', views.logoutView),
+    path('api/<uderid>/groups', views.showGroups),
+    path('api/<userid>/groups/<groupname>', views.showEvents),
+    path('api/<userid>/groups/<groupname>/events/<eventid>', views.showPeopleOfEvent),
 ]
