@@ -1,2 +1,5 @@
 .idea
 db.sqlite3
+dinnder_env
+HackathonDinder/__pycache__
+dinder/__pycache__
