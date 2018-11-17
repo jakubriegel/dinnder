@@ -8,4 +8,6 @@ urlpatterns = [
     path('api/<userid>/groups', views.showGroups),
     path('api/<userid>/groups/<groupname>', views.showEvents),
     path('api/<userid>/groups/<groupname>/events/<eventid>', views.showPeopleOfEvent),
+    path('api/<userid>/create/group', views.groupMaker),
+    path('api/<userid>/<groupid>/create/event', views.eventMaker),
 ]
