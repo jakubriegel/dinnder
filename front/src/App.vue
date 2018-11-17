@@ -1,10 +1,29 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/events">Events</router-link>|
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav class="orange">
+      <div id="nav" class="nav-wrapper left-align container">
+        <a href="#!" class="brand-logo">Dinnder</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/groups">Your groups</router-link></li>
+          <li><router-link to="/events">Events</router-link></li>
+          <li><router-link to="/add_event">Add Event</router-link></li>
+          <li><router-link to="/add_group">Add Group</router-link></li>
+          <li><router-link to="/about">About</router-link></li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/groups">Your groups</router-link></li>
+      <li><router-link to="/events">Events</router-link></li>
+      <li><router-link to="/add_event">Add Event</router-link></li>
+      <li><router-link to="/add_group">Add Group</router-link></li>
+      <li><router-link to="/about">About</router-link></li>
+    </ul>
+    </ul>
     <router-view/>
   </div>
 </template>
@@ -16,7 +35,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
+
+
 
