@@ -6,7 +6,7 @@ from dinder import models
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.DinderGroup
-        fields = ('name', 'is_private')
+        fields = ('id', 'name', 'is_private')
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
@@ -14,7 +14,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.DinderEvent
-        fields = ('name', 'group', 'localization')
+        fields = ('id', 'name', 'group', 'localization')
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,5 +22,5 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     events = EventSerializer(many=True)
 
     class Meta:
-        model = models.DinderEvent
-        fields = ('name', 'surname', 'username', 'image', 'groups', 'events', 'localization')
+        model = models.DinderProfile
+        fields = ('id', 'name', 'surname', 'username', 'image', 'groups', 'events', 'localization')
