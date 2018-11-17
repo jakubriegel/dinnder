@@ -52,7 +52,6 @@ def showEvents(request, userid, groupname):
     events = group.dinderevent_set.all()
 
     serializer = EventSerializer(events, many=True)
-
     return Response({
         'success': True,
         'events': serializer.data
@@ -66,37 +65,30 @@ def showPeopleOfEvent(request, userid, groupname, eventid):
     group = guy_groups.get(name=groupname)
     events = group.dinderevent_set.all()
     event = events.get(id=eventid)
+    event_serializer = EventSerializer(event)
     people = (event.dinderprofile_set.all())
     people_serializer = ProfileSerializer(people, many=True)
 
     return Response({
         'success': True,
-        'name': event.name,
-        'location': event.localization,
-        'taken': len(people),
-        'total': 999,
+        'event': event_serializer.data,
         'people': people_serializer.data
     })
 
-
-@api_view(['POST'])
-@csrf_exempt
-def makegroup(request):
-    data = json.loads(request.body.decode("utf-8"))
-    print(data)
-    return HttpResponse("not implemented yet")
 
 
 @api_view(['POST'])
 @csrf_exempt
 def groupMaker(request,userid):
     data = json.loads(request.body.decode("utf-8"))
-    group = DinderGroup(name=data['groupname'])
+    group = DinderGroup(name=data['groupname'], image=data['image'], description=data['description'])
     group.save()
     guy = DinderProfile.objects.get(id=int(userid))
     guy.groups.add(group)
 
-    return HttpResponse("not implemented yet")
+    return Response({
+        'success': True,
+    })
 
 
 @api_view(['POST'])
@@ -105,8 +97,12 @@ def eventMaker(request,userid,groupid):
     data = json.loads(request.body.decode("utf-8"))
     guy = DinderProfile.objects.get(id=int(userid))
     groupofguy = DinderGroup.objects.get(id=int(groupid))
-    event = DinderEvent(name=data['eventname'],group=groupofguy)
+    event = DinderEvent(name=data['eventname'],image=data['image'], group=groupofguy, localizationName=data['localizationName'],
+                        localizationLNG= data['localizationLNG'], localizationLAT=data['localizationLAT'],
+                        description=data['description'], dateOfEvent=data['dateOfEvent'], limitOfPeople=data['limitOfPeople'])
     event.save()
     guy.events.add(event)
 
-    return HttpResponse("not implemented yet")
+    return Response({
+        'success': True,
+    })
