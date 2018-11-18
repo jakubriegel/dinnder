@@ -17,7 +17,7 @@
     export default {
         data() {
             return {
-                message: 'Guewno'
+                message: '123'
             }
         }
     }

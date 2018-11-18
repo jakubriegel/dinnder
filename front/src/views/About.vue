@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col s12">
         <div class="about">
-          <h4>This is an about page</h4>
+          <h4>About Dinnder</h4>
         </div>
       </div>
     </div>
