@@ -81,7 +81,7 @@ def get_nearby(request, userid, lat=52.3993137, lng=16.931586899999957):
 
 
 @api_view(['GET'])
-def showPeopleOfEvent(request, userid, groupname, eventid):
+def showPeopleOfEvent(request, userid, groupid, eventid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
     group = guy_groups.get(id=groupid)
