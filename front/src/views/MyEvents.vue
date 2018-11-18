@@ -7,7 +7,7 @@
                         <img v-bind:src="event.image" alt="photo" class="circle max-50">
                         <p>
                             <span class="title"><b>{{ event.name }}</b></span>
-                            <a class="btn-floating waves-effect waves-light orange right"></a>
+                            <a class="btn-floating waves-effect waves-light orange right"><i class="material-icons" v-on:click="remove(event.id)">rmv</i></a>
                             <br>
                             {{event.description}}
                             <br>
@@ -40,6 +40,15 @@
                     .get('http://10.254.50.28:8000/api/4/myEvents')
                     .then(response => (this.events = response.data.events))
             },
+            remove(eventId){
+                axios
+                    .post('http://10.254.50.28:8000/api/4/' + eventId + '/deleteEventFromUser')
+                    .then(() => {
+                        axios
+                            .get('http://10.254.50.28:8000/api/4/myEvents')
+                            .then(response => (this.events = response.data.events))
+                    })
+            }
         },
         mounted() {
             console.log(',mmmmmm');
