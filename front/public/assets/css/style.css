@@ -22,3 +22,21 @@ a {
     /* Add a dark-grey background on hover */
     opacity: 1;
 }
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #ff9800 !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #ff9800 !important;
+}
+
+#groups {
+    min-height: 800px;
+}
+
+.margin12 {
+    margin: 12px;
+}

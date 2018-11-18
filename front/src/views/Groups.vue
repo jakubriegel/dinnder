@@ -7,18 +7,25 @@
                         <img v-bind:src="group.image" alt="photo" class="circle max-50">
                         <p>
                             <span class="title"><b>{{ group.name }}</b></span> <br>
-                            {{group.description}}
+                            {{group.description}}<br>
                         </p>
                     </li>
                 </ul>
             </div>
             <div class="col s12 m8 min-800">
                 <ul class="collection z-depth-4" id="events">
-                    <li class="collection-item avatar" v-for="event in events">
+                    <li class="collection-item avatar animated fadeIn" v-for="event in events">
                         <img v-bind:src="event.image" alt="photo" class="circle max-50">
                         <p>
-                            <span class="title"><b>{{ event.name }}</b></span><span class="right">Slots: <b>{{event.limitOfPeople}}</b></span> <br>
+                            <span class="title"><b>{{ event.name }}</b></span>
+                            <a class="btn-floating waves-effect waves-light orange right"><i class="material-icons">add</i></a>
+                            <br>
                             {{event.description}}
+                            <br>
+                            <b>Place: </b><i>{{event.localizationName}}</i>
+                            <br>
+                            <span><b>Slots:</b> {{event.limitOfPeople}}</span>
+                            <span class="right">{{event.dateOfEvent}}</span>
                         </p>
                     </li>
                 </ul>
@@ -30,6 +37,10 @@
 <script>
     import axios from "axios"
     import jquery from "jquery"
+
+    if ($(window).width() < 601){
+        $("#groups").toggle();
+    }
 
     export default {
         data() {

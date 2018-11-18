@@ -5,8 +5,7 @@
         <a href="#!" class="brand-logo">Dinnder</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/groups">Your groups</router-link></li>
+          <li><router-link to="/">Your groups</router-link></li>
           <li><router-link to="/add_event">Add Event</router-link></li>
           <li><router-link to="/add_group">Add Group</router-link></li>
           <li><router-link to="/about">About</router-link></li>
@@ -25,8 +24,7 @@
           <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
       </div>
       </li>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/groups">Your groups</router-link></li>
+      <li><router-link to="/">Your groups</router-link></li>
       <li><router-link to="/add_event">Add Event</router-link></li>
       <li><router-link to="/add_group">Add Group</router-link></li>
       <li><router-link to="/about">About</router-link></li>
@@ -42,8 +40,7 @@
           <div class="col l3 s12 right-align links hide-on-small-only">
             <h5 class="white-text">Łącza</h5>
             <ul>
-              <li><router-link to="/">Home</router-link></li>
-              <li><router-link to="/groups">Your groups</router-link></li>
+              <li><router-link to="/">Your groups</router-link></li>
               <li><router-link to="/add_event">Add Event</router-link></li>
               <li><router-link to="/add_group">Add Group</router-link></li>
               <li><router-link to="/about">About</router-link></li>
