@@ -36,10 +36,18 @@
         },
         methods: {
             sendQuery(id){
-                axios
-                    .get('http://10.254.50.28:8000/api/4/groups/' + id)
-                    .then(response => (this.events = response.data.events));
-            }
+                console.log("events" + id);
+                if(id == 0) {
+                    axios
+                        .get('http://10.254.50.28:8000/api/4/nearby/52.399455396/16.930157362')
+                        .then(response => (this.events = response.data.events))
+                }
+                else {
+                    axios
+                        .get('http://10.254.50.28:8000/api/4/groups/' + id)
+                        .then(response => (this.events = response.data.events));
+                }
+            },
         },
         mounted() {
             this.sendQuery(this.groupId);
