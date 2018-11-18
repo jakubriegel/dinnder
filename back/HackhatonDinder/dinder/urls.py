@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/<userid>/groups', views.showGroups),
     path('api/<userid>/groups/<groupid>', views.showEvents),
     path('api/<userid>/groups/<groupid>/events/<eventid>', views.showPeopleOfEvent),
+    path('api/<userid>/nearby/<lat>/<lng>', views.get_nearby),
     path('api/<userid>/create/group', views.groupMaker),
     path('api/<userid>/<groupid>/create/event', views.eventMaker),
 ]
