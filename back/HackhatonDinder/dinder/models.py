@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import datetime
 
 class DinderGroup(models.Model):
     name = models.CharField(max_length=100)
@@ -19,7 +20,7 @@ class DinderEvent(models.Model):
     localizationLNG = models.FloatField(null=True,blank=True)
     localizationLAT = models.FloatField(null=True,blank=True)
     description = models.CharField(max_length=500, null=True, blank=True)
-    dateOfEvent = models.DateTimeField()
+    dateOfEvent = models.DateTimeField(default = datetime.now, blank=True)
 
     limitOfPeople = models.IntegerField(default=5)
     def __str__(self):

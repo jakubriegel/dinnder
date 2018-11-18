@@ -45,10 +45,10 @@ def showGroups(request, userid):
 
 
 @api_view(['GET'])
-def showEvents(request, userid, groupname):
+def showEvents(request, userid, groupid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
-    group = guy_groups.get(name=groupname)
+    group = guy_groups.get(id=groupid)
     events = group.dinderevent_set.all()
 
     serializer = EventSerializer(events, many=True)
@@ -59,10 +59,10 @@ def showEvents(request, userid, groupname):
 
 
 @api_view(['GET'])
-def showPeopleOfEvent(request, userid, groupname, eventid):
+def showPeopleOfEvent(request, userid, groupid, eventid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
-    group = guy_groups.get(name=groupname)
+    group = guy_groups.get(id=groupid)
     events = group.dinderevent_set.all()
     event = events.get(id=eventid)
     event_serializer = EventSerializer(event)
