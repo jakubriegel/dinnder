@@ -106,3 +106,24 @@ def eventMaker(request,userid,groupid):
     return Response({
         'success': True,
     })
+
+
+@api_view(['POST'])
+@csrf_exempt
+def signupForEvent(request,userid,groupid,eventid_to_take):
+    guy = DinderProfile.objects.get(id=userid)
+    event=DinderEvent.objects.get(id=eventid_to_take)
+    guy.events.add(event)
+    return Response({
+        'success': True,
+    })
+
+@api_view(['GET'])
+def myEventsTakePartIn(request, userid):
+    guy = DinderProfile.objects.get(id=userid)
+    events = guy.events.all()
+    serializer = EventSerializer(events, many=True)
+    return Response({
+        'success': True,
+        'events': serializer.data
+    })
