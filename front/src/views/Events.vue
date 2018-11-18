@@ -7,7 +7,7 @@
                         <img v-bind:src="event.image" alt="photo" class="circle max-50">
                         <p>
                             <span class="title"><b>{{ event.name }}</b></span>
-                            <a class="btn-floating waves-effect waves-light orange right"><i class="material-icons">add</i></a>
+                            <a class="btn-floating waves-effect waves-light orange right"><i class="material-icons" v-on:click="singup(event.id, event.group.id)">add</i></a>
                             <br>
                             {{event.description}}
                             <br>
@@ -36,7 +36,6 @@
         },
         methods: {
             sendQuery(id){
-                console.log("events" + id);
                 if(id == 0) {
                     axios
                         .get('http://10.254.50.28:8000/api/4/nearby/52.399455396/16.930157362')
@@ -48,6 +47,10 @@
                         .then(response => (this.events = response.data.events));
                 }
             },
+            singup(eventId, groupId) {
+                axios
+                    .post('http://10.254.50.28:8000/api/4/' + groupId + '/' + eventId + '/takepartin')
+            }
         },
         mounted() {
             this.sendQuery(this.groupId);

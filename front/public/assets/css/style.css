@@ -33,6 +33,18 @@ a {
     border-bottom: 1px solid #ff9800 !important;
 }
 
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #ff9800 !important;
+}
+
+.logo-size{
+    max-height: 65px;
+}
+
+.logo-medium{
+    max-height: 200px;
+}
+
 #groups {
     min-height: 800px;
 }
