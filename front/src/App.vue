@@ -2,7 +2,8 @@
   <div id="app">
     <nav class="orange">
       <div id="nav" class="nav-wrapper left-align container">
-        <a href="#!" class="brand-logo">Dinnder</a>
+        <!--<a href="#!" class="brand-logo">Dinnder</a>-->
+        <img src="./assets/logo.png" alt="Logo" class="brand-logo logo-size">
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li><router-link to="/">Your groups</router-link></li>
@@ -37,7 +38,7 @@
         <div class="row">
           <div class="col l9 s12">
             <h5 class="white-text">Czym jest Dinder?</h5>
-            <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel urna ut risus accumsan auctor. Pellentesque quis porta dolor. Suspendisse in mauris convallis, varius orci eget, lacinia quam. Nulla convallis consectetur urna id tempus. Nullam cursus euismod accumsan. Mauris feugiat at urna tincidunt eleifend. Sed risus magna, dapibus eu molestie nec, rhoncus ac urna. Aenean fermentum, velit at laoreet laoreet, odio dolor volutpat ex, vel tempor orci quam vel dui.</p>
+            <p class="grey-text text-lighten-4">Znudzony jedzeniem samemu w swojej okolicy? Dinnder to aplikacja, dzięki której już nigdy nie spędzisz posiłku samotnie! Ponad 5000 zarejestrowanych restuaracji działających na terenie 12 największych miast w Polsce, a do tego co miesięczne promocje i kupony dla wszystkich aktywnych użytkówników. Poznawanie nowych ludzi jeszcze nigdy nie było tak proste! Skojrzystaj z ogromnej funkcjonalności, dzięki której będziesz mógł organizować eventy, tworzyć oraz dołączać do istniejących grup, a to wszystko za pomocą bardzo prostego i przejrzystego menu. Zaufało nam już ponad 50 tys. użytkowników, a z każdym miesiącem przybywa ich coraz więcej! Wypełnij 3 minutowy formularz i już dziś ciesz się życiem razem z Dinnderem.</p>
           </div>
           <div class="col l3 s12 right-align links hide-on-small-only">
             <h5 class="white-text">Łącza</h5>
