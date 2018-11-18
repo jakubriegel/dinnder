@@ -81,7 +81,7 @@ def get_nearby(request, userid, lat=52.3993137, lng=16.931586899999957):
 
 
 @api_view(['GET'])
-def showPeopleOfEvent(request, userid, groupname, eventid):
+def showPeopleOfEvent(request, userid, groupid, eventid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
     group = guy_groups.get(id=groupid)
@@ -127,4 +127,25 @@ def eventMaker(request,userid,groupid):
 
     return Response({
         'success': True,
+    })
+
+
+@api_view(['POST'])
+@csrf_exempt
+def signupForEvent(request,userid,groupid,eventid_to_take):
+    guy = DinderProfile.objects.get(id=userid)
+    event=DinderEvent.objects.get(id=eventid_to_take)
+    guy.events.add(event)
+    return Response({
+        'success': True,
+    })
+
+@api_view(['GET'])
+def myEventsTakePartIn(request, userid):
+    guy = DinderProfile.objects.get(id=userid)
+    events = guy.events.all()
+    serializer = EventSerializer(events, many=True)
+    return Response({
+        'success': True,
+        'events': serializer.data
     })
