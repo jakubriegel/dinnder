@@ -2,7 +2,7 @@
     <div id="groups" class="groups container">
         <div class="row">
             <div class="col s12 m4">
-                <ul class="collection z-depth-4">
+                <ul class="collection z-depth-4" id="groups_list">
                     <li class="collection-item avatar" v-for="group in groups" v-on:click="sendQuery(group.name)">
                         <img src="../assets/yuna.jpg" alt="photo" class="circle max-50">
                         <p>
@@ -13,7 +13,7 @@
                 </ul>
             </div>
             <div class="col s12 m8 min-800">
-                <ul class="collection z-depth-4 ">
+                <ul class="collection z-depth-4" id="events">
                     <li class="collection-item avatar" v-for="event in events">
                         <img src="../assets/yuna.jpg" alt="photo" class="circle max-50">
                         <p>
@@ -29,48 +29,39 @@
 
 <script>
     import axios from "axios"
+    import jquery from 'jquery'
 
     export default {
         data() {
             return {
                 groups:[
-                    { text: 'Group ###'},
-                    { text: 'Group ###'},
-                    { text: 'Group ###'},
-                    { text: 'Group ###'},
-                    { text: 'Group ###'}
+                    { text: 'Group Error'}
                 ],
                 events:[
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                    { text: 'Event 123'},
-                ],
-                groups_test: null
+                    { text: 'Event Error'}
+                ]
             }
         },
         methods: {
             sendQuery(name){
-                console.log(this.groups_test);
                 console.log(name);
                 axios
                     .get('http://10.254.50.28:8000/api/4/groups/' + name)
                     .then(response => (this.events = response.data.events))
+
+                $(".active").removeClass("orange active")
+
             }
         },
         mounted () {
             axios
                .get('http://10.254.50.28:8000/api/4/groups')
                 .then(response => (this.groups = response.data.groups))
-                 //.then(this.groups = this.group_test.groups)
-            //if(this.groups_test.groups) this.groups = this.groups_test
+
+            var e = document.getElementById("groups_list").firstChild;
+            e.classList.add("orange");
+            e.classList.add("active");
+
         }
     }
 </script>

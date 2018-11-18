@@ -5,3 +5,20 @@
 a {
     color: white;
 }
+
+.topButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    background-color: #7CB342;
+    cursor: pointer;
+    padding: 8px 15px;
+    opacity: 0.8;
+}
+.topButton:hover {
+    background-color: #7CB342;
+    /* Add a dark-grey background on hover */
+    opacity: 1;
+}
