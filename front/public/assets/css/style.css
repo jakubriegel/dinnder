@@ -1,0 +1,42 @@
+.max-50 {
+    max-height: 50px;
+}
+
+a {
+    color: white;
+}
+
+.topButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    background-color: #7CB342;
+    cursor: pointer;
+    padding: 8px 15px;
+    opacity: 0.8;
+}
+.topButton:hover {
+    background-color: #7CB342;
+    /* Add a dark-grey background on hover */
+    opacity: 1;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #ff9800 !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #ff9800 !important;
+}
+
+#groups {
+    min-height: 800px;
+}
+
+.margin12 {
+    margin: 12px;
+}
