@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from dinder.models import DinderEvent, DinderProfile
 from dinder.serializers import GroupSerializer, EventSerializer, ProfileSerializer
-
+from geopy.distance import geodesic
 
 def index(request):
     return HttpResponse("Dinder home.")
@@ -45,13 +45,34 @@ def showGroups(request, userid):
 
 
 @api_view(['GET'])
-def showEvents(request, userid, groupname):
+def showEvents(request, userid, groupid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
-    group = guy_groups.get(name=groupname)
+    group = guy_groups.get(id=groupid)
     events = group.dinderevent_set.all()
 
     serializer = EventSerializer(events, many=True)
+    return Response({
+        'success': True,
+        'events': serializer.data
+    })
+
+
+@api_view(['GET'])
+def get_nearby(request, userid, lat=52.3993137, lng=16.931586899999957):
+    user_loc = (lat, lng)
+
+    groups = DinderGroup.objects.all()
+    nearby_events = []
+    for group in groups:
+        if group.is_private is not True:
+            events = group.dinderevent_set.all()
+            for event in events:
+                if event.localizationLNG and event.localizationLAT:
+                    if geodesic(user_loc, (event.localizationLAT, event.localizationLNG)).km < 1:
+                        nearby_events.append(event)
+
+    serializer = EventSerializer(nearby_events, many=True)
 
     return Response({
         'success': True,
@@ -63,40 +84,33 @@ def showEvents(request, userid, groupname):
 def showPeopleOfEvent(request, userid, groupname, eventid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
-    group = guy_groups.get(name=groupname)
+    group = guy_groups.get(id=groupid)
     events = group.dinderevent_set.all()
     event = events.get(id=eventid)
+    event_serializer = EventSerializer(event)
     people = (event.dinderprofile_set.all())
     people_serializer = ProfileSerializer(people, many=True)
 
     return Response({
         'success': True,
-        'name': event.name,
-        'location': event.localization,
-        'taken': len(people),
-        'total': 999,
+        'event': event_serializer.data,
         'people': people_serializer.data
     })
 
-
-@api_view(['POST'])
-@csrf_exempt
-def makegroup(request):
-    data = json.loads(request.body.decode("utf-8"))
-    print(data)
-    return HttpResponse("not implemented yet")
 
 
 @api_view(['POST'])
 @csrf_exempt
 def groupMaker(request,userid):
     data = json.loads(request.body.decode("utf-8"))
-    group = DinderGroup(name=data['groupname'])
+    group = DinderGroup(name=data['groupname'], image=data['image'], description=data['description'])
     group.save()
     guy = DinderProfile.objects.get(id=int(userid))
     guy.groups.add(group)
 
-    return HttpResponse("not implemented yet")
+    return Response({
+        'success': True,
+    })
 
 
 @api_view(['POST'])
@@ -105,8 +119,12 @@ def eventMaker(request,userid,groupid):
     data = json.loads(request.body.decode("utf-8"))
     guy = DinderProfile.objects.get(id=int(userid))
     groupofguy = DinderGroup.objects.get(id=int(groupid))
-    event = DinderEvent(name=data['eventname'],group=groupofguy)
+    event = DinderEvent(name=data['eventname'],image=data['image'], group=groupofguy, localizationName=data['localizationName'],
+                        localizationLNG= data['localizationLNG'], localizationLAT=data['localizationLAT'],
+                        description=data['description'], dateOfEvent=data['dateOfEvent'], limitOfPeople=data['limitOfPeople'])
     event.save()
     guy.events.add(event)
 
-    return HttpResponse("not implemented yet")
+    return Response({
+        'success': True,
+    })
