@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col s12 m4">
                 <ul class="collection z-depth-4" id="groups_list">
-                    <li class="collection-item avatar" v-for="group in groups" v-on:click="sendQuery(group.name)">
-                        <img src="../assets/yuna.jpg" alt="photo" class="circle max-50">
+                    <li class="collection-item avatar" v-for="group in groups" v-on:click="sendQuery(group.id)" :class="{orange:group.id == selected}" @click="selected = group.id">
+                        <img v-bind:src="group.image" alt="photo" class="circle max-50">
                         <p>
-                            <span class="title">{{ group.name }}</span> <br>
-                            {{group.id}}
+                            <span class="title"><b>{{ group.name }}</b></span> <br>
+                            {{group.description}}
                         </p>
                     </li>
                 </ul>
@@ -15,10 +15,10 @@
             <div class="col s12 m8 min-800">
                 <ul class="collection z-depth-4" id="events">
                     <li class="collection-item avatar" v-for="event in events">
-                        <img src="../assets/yuna.jpg" alt="photo" class="circle max-50">
+                        <img v-bind:src="event.image" alt="photo" class="circle max-50">
                         <p>
-                            <span class="title">{{ event.name }}</span> <br>
-                            {{event.localization}}
+                            <span class="title"><b>{{ event.name }}</b></span><span class="right">Slots: <b>{{event.limitOfPeople}}</b></span> <br>
+                            {{event.description}}
                         </p>
                     </li>
                 </ul>
@@ -29,39 +29,36 @@
 
 <script>
     import axios from "axios"
-    import jquery from 'jquery'
+    import jquery from "jquery"
 
     export default {
         data() {
             return {
+                selected: undefined,
                 groups:[
                     { text: 'Group Error'}
                 ],
-                events:[
-                    { text: 'Event Error'}
-                ]
+                events:[]
             }
         },
         methods: {
-            sendQuery(name){
-                console.log(name);
+            sendQuery(id){
                 axios
-                    .get('http://10.254.50.28:8000/api/4/groups/' + name)
+                    .get('http://10.254.50.28:8000/api/4/groups/' + id)
                     .then(response => (this.events = response.data.events))
 
-                $(".active").removeClass("orange active")
-
+                $(".active").removeClass("orange active");
+                if ($(window).width() < 601){ window.location.replace("/events/" + id); }
             }
         },
         mounted () {
             axios
                .get('http://10.254.50.28:8000/api/4/groups')
-                .then(response => (this.groups = response.data.groups))
+                .then(response => (this.groups = response.data.groups));
 
             var e = document.getElementById("groups_list").firstChild;
             e.classList.add("orange");
             e.classList.add("active");
-
         }
     }
 </script>
