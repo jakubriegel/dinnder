@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col s12 m4">
                 <ul class="collection z-depth-4">
-                    <li class="collection-item avatar" id="nearby-container" v-on:click="getNearby()">
+                    <li class="collection-item avatar" id="nearby-container" v-on:click="getNearby()" :class="{orange: selected == 0}" @click="selected = 0">
                         <img src="https://i1.wp.com/www.123freevectors.com/wp-content/uploads/new/123fv-images/1297-google-maps-pin-icon.jpg?zoom=2.625&quality=100&strip=all&ssl=1" alt="photo" class="circle max-50">
                         <p>
                             <span class="title"><b>nearby</b></span> <br>
