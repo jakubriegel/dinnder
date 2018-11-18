@@ -45,10 +45,10 @@ def showGroups(request, userid):
 
 
 @api_view(['GET'])
-def showEvents(request, userid, groupname):
+def showEvents(request, userid, groupid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
-    group = guy_groups.get(name=groupname)
+    group = guy_groups.get(id=groupid)
     events = group.dinderevent_set.all()
 
     serializer = EventSerializer(events, many=True)
@@ -84,7 +84,7 @@ def get_nearby(request, userid, lat=52.3993137, lng=16.931586899999957):
 def showPeopleOfEvent(request, userid, groupname, eventid):
     guy = DinderProfile.objects.get(id=userid)
     guy_groups = guy.groups.all()
-    group = guy_groups.get(name=groupname)
+    group = guy_groups.get(id=groupid)
     events = group.dinderevent_set.all()
     event = events.get(id=eventid)
     event_serializer = EventSerializer(event)

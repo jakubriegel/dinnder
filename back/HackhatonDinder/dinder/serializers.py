@@ -24,4 +24,4 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.DinderProfile
-        fields = ('id', 'name', 'surname', 'username', 'image', 'groups', 'events', 'localization', 'image')
+        fields = ('id', 'name', 'surname', 'username', 'image', 'groups', 'events', 'localizationLNG', 'localizationLAT', 'image')
