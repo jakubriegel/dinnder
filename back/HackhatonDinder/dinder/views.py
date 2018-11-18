@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from dinder.models import DinderEvent, DinderProfile
 from dinder.serializers import GroupSerializer, EventSerializer, ProfileSerializer
-
+from geopy.distance import geodesic
 
 def index(request):
     return HttpResponse("Dinder home.")
@@ -52,6 +52,28 @@ def showEvents(request, userid, groupname):
     events = group.dinderevent_set.all()
 
     serializer = EventSerializer(events, many=True)
+    return Response({
+        'success': True,
+        'events': serializer.data
+    })
+
+
+@api_view(['GET'])
+def get_nearby(request, userid, lat=52.3993137, lng=16.931586899999957):
+    user_loc = (lat, lng)
+
+    groups = DinderGroup.objects.all()
+    nearby_events = []
+    for group in groups:
+        if group.is_private is not True:
+            events = group.dinderevent_set.all()
+            for event in events:
+                if event.localizationLNG and event.localizationLAT:
+                    if geodesic(user_loc, (event.localizationLAT, event.localizationLNG)).km < 1:
+                        nearby_events.append(event)
+
+    serializer = EventSerializer(nearby_events, many=True)
+
     return Response({
         'success': True,
         'events': serializer.data
