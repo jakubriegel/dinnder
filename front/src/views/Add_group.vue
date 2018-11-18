@@ -4,7 +4,7 @@
             <div class="col s12">
                 <div class="add_group">
                     <form id="add_group" name="add_group" v-on:submit.prevent="submitForm">
-                        <h4>Add Event</h4>
+                        <h4>Add Group</h4>
                         <div class="input-field col s12">
                             <input id="group_name" v-model="groupname" name="group_name" type="text" class="">
                             <label for="group_name">Group Name</label>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+    import axios from "axios"
     import jquery from "jquery"
     export default {
         data() {
@@ -47,18 +48,19 @@
         },
         methods:{
             submitForm(){
-
-                console.log(this.group_name);
-                // axios.post('http://10.254.50.28:8000/api/4/create/group',
-                //     {
-                //      "userid":"4",
-                //      "groupname":this.group_name
-                //     }, // the data to post
-                //     { headers: {
-                //             'Content-type': 'application/x-www-form-urlencoded',
-                //         }
-                //     });
-                M.toast({html: 'Event added!', classes: 'rounded'});
+                console.
+                axios.post('http://10.254.50.28:8000/api/4/create/group',
+                    {
+                      "userid": this.userid,
+                      "groupname":this.groupname,
+                      "image" : this.image,
+                      "description": this.description
+                    }, // the data to post
+                    { headers: {
+                            'Content-type': 'application/x-www-form-urlencoded',
+                        }
+                    });
+                M.toast({html: 'Group added!', classes: 'rounded'});
             }
         },
         mounted(){
