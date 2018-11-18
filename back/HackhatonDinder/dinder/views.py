@@ -9,6 +9,7 @@ from dinder.models import DinderEvent, DinderProfile
 from dinder.serializers import GroupSerializer, EventSerializer, ProfileSerializer
 from geopy.distance import geodesic
 
+
 def index(request):
     return HttpResponse("Dinder home.")
 
@@ -69,7 +70,7 @@ def get_nearby(request, userid, lat=52.3993137, lng=16.931586899999957):
             events = group.dinderevent_set.all()
             for event in events:
                 if event.localizationLNG and event.localizationLAT:
-                    if geodesic(user_loc, (event.localizationLAT, event.localizationLNG)).km < 1:
+                    if geodesic(user_loc, (event.localizationLAT, event.localizationLNG)).km < 4:
                         nearby_events.append(event)
 
     serializer = EventSerializer(nearby_events, many=True)
@@ -98,10 +99,9 @@ def showPeopleOfEvent(request, userid, groupid, eventid):
     })
 
 
-
 @api_view(['POST'])
 @csrf_exempt
-def groupMaker(request,userid):
+def groupMaker(request, userid):
     data = json.loads(request.body.decode("utf-8"))
     group = DinderGroup(name=data['groupname'], image=data['image'], description=data['description'])
     group.save()
@@ -115,13 +115,15 @@ def groupMaker(request,userid):
 
 @api_view(['POST'])
 @csrf_exempt
-def eventMaker(request,userid,groupid):
+def eventMaker(request, userid, groupid):
     data = json.loads(request.body.decode("utf-8"))
     guy = DinderProfile.objects.get(id=int(userid))
     groupofguy = DinderGroup.objects.get(id=int(groupid))
-    event = DinderEvent(name=data['eventname'],image=data['image'], group=groupofguy, localizationName=data['localizationName'],
-                        localizationLNG= data['localizationLNG'], localizationLAT=data['localizationLAT'],
-                        description=data['description'], dateOfEvent=data['dateOfEvent'], limitOfPeople=data['limitOfPeople'])
+    event = DinderEvent(name=data['eventname'], image=data['image'], group=groupofguy,
+                        localizationName=data['localizationName'],
+                        localizationLNG=data['localizationLNG'], localizationLAT=data['localizationLAT'],
+                        description=data['description'], dateOfEvent=data['dateOfEvent'],
+                        limitOfPeople=data['limitOfPeople'])
     event.save()
     guy.events.add(event)
 
@@ -132,13 +134,14 @@ def eventMaker(request,userid,groupid):
 
 @api_view(['POST'])
 @csrf_exempt
-def signupForEvent(request,userid,groupid,eventid_to_take):
+def signupForEvent(request, userid, groupid, eventid_to_take):
     guy = DinderProfile.objects.get(id=userid)
-    event=DinderEvent.objects.get(id=eventid_to_take)
+    event = DinderEvent.objects.get(id=eventid_to_take)
     guy.events.add(event)
     return Response({
         'success': True,
     })
+
 
 @api_view(['GET'])
 def myEventsTakePartIn(request, userid):
