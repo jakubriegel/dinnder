@@ -6,6 +6,7 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li><router-link to="/">Your groups</router-link></li>
+          <li><router-link to="/myevents">My Events</router-link></li>
           <li><router-link to="/add_event">Add Event</router-link></li>
           <li><router-link to="/add_group">Add Group</router-link></li>
           <li><router-link to="/about">About</router-link></li>
@@ -25,6 +26,7 @@
       </div>
       </li>
       <li><router-link to="/">Your groups</router-link></li>
+      <li><router-link to="/myevents">My Events</router-link></li>
       <li><router-link to="/add_event">Add Event</router-link></li>
       <li><router-link to="/add_group">Add Group</router-link></li>
       <li><router-link to="/about">About</router-link></li>

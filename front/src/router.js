@@ -40,6 +40,11 @@ export default new Router({
         path: '/events/:groupId',
         component: () => import('./views/Events.vue'),
         props: true,
+    },
+    {
+      path: '/myevents',
+      component: () => import('./views/MyEvents.vue'),
+      props: true,
     }
   ]
 })
