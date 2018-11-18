@@ -152,3 +152,14 @@ def myEventsTakePartIn(request, userid):
         'success': True,
         'events': serializer.data
     })
+
+
+@api_view(['POST'])
+@csrf_exempt
+def removeForEvent(request, userid, eventid):
+    guy = DinderProfile.objects.get(id=userid)
+    event = DinderEvent.objects.get(id=eventid)
+    guy.events.remove(event)
+    return Response({
+        'success': True,
+    })

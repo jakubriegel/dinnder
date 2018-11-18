@@ -13,4 +13,5 @@ urlpatterns = [
     path('api/<userid>/<groupid>/create/event', views.eventMaker),
     path('api/<userid>/<groupid>/<eventid_to_take>/takepartin', views.signupForEvent),
     path('api/<userid>/myEvents', views.myEventsTakePartIn),
+    path('api/<userid>/<eventid>/deleteEventFromUser', views.removeForEvent),
 ]
