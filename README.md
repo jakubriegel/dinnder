@@ -2,7 +2,7 @@
 
 Project for Sii lets code
 
-### Run
+## Run
 Run Backend on Python 3.6 with command:
 `python manage.py runserver`
 
